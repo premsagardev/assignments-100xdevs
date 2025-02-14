@@ -17,7 +17,9 @@ const fs = require('fs');
 const path = require('path');
 const app = express();
 const dirPath = './files/'
-//get 
+
+
+//List files function
 function listFiles(directory){
   try {
     const files = fs.readdirSync(directory);
@@ -36,9 +38,13 @@ function listFiles(directory){
 
 app.get("/files", function(req , res){
   const ans = listFiles('./files');
-  res.send("The list of files are \n" + ans);
+  res.send(ans).json;
+  res.status(200)
 })
 
+app.all("/", function(req, res){
+  res.status(404)
+})
 
 app.listen(3000);
 module.exports = app;
