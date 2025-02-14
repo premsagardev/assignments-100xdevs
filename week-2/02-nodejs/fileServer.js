@@ -16,6 +16,29 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const app = express();
+const dirPath = './files/'
+//get 
+function listFiles(directory){
+  try {
+    const files = fs.readdirSync(directory);
+    const filesList = []
+    console.log(files) 
+    // files.forEach(files=>{
+    //   const filePath = path.join
+    // }
+    // )
+    return files
+  } catch (err){
+    console.error("Error Reading Directory", err);
+    return []
+  }
+}
+
+app.get("/files", function(req , res){
+  const ans = listFiles('./files');
+  res.send("The list of files are \n" + ans);
+})
 
 
+app.listen(3000);
 module.exports = app;
