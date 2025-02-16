@@ -42,9 +42,27 @@ app.get("/files", function(req , res){
   res.status(200)
 })
 
-app.all("/", function(req, res){
-  res.status(404)
+app.get("/files/:filename" , function(req, res){
+  const fileName = req.params.filename;
+  const filePath = path.join("./files", fileName);
+  fs.readFile(filePath, 'utf-8', (err, data)=>{
+    if(err){
+      res.status(404).send("File not found")
+    } else {
+      res.status(200).send(data)
+    }
+  })
 })
+
+
+app.all("/", function(req, res){
+  res.status(404).send("Invaid Route")
+})
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Internal Server Error');
+});
 
 app.listen(3000);
 module.exports = app;
