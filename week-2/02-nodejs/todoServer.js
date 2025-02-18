@@ -47,19 +47,46 @@
   app.use(bodyParser.json());
 
 
+function getDetailsById(array, id){
+  return array.filter(obj => Obj.id = id);
+}
+
 // todo object
-  let todo = []
+  let todos = []
+
 // get all todos
   app.get("/", function(req, res){
-    let ans = todos
-    res.send(ans)
+    // let ans = todos
+    // res.send(ans)
+    res.json(todos)
     res.status(200)
-  })
+  });
+
+// get an item based on id
+app.get("/todos/:id", function(req, res){
+  const id = req.params.id;
+
+  const ans = getDetailsById(todos, id);
+  res.send(ans)
+
+});
+
 
 //Add an item to todos
-app.post("/todos", function(req, res){
-  id = Math.floor(Math.random() * 10000) + 1
+app.post("/todos", (req, res) => {
+  // let id = Math.floor(Math.random() * 10000) + 1
+  // const title = req.params.title;
+  // const desc = req.params.description;
 
-})
+  const newTodo = {
+    id : Math.floor(Math.random()* 100000) + 1,
+    title : req.body.title,
+    description : req.body.description
+  }
 
-  module.exports = app;
+  todos.push(newTodo);
+  res.status(201).json(newTodo)
+});
+
+app.listen(3000);
+module.exports = app;
