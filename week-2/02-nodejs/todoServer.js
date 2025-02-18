@@ -45,5 +45,21 @@
   const app = express();
   
   app.use(bodyParser.json());
-  
+
+
+// todo object
+  let todo = []
+// get all todos
+  app.get("/", function(req, res){
+    let ans = todos
+    res.send(ans)
+    res.status(200)
+  })
+
+//Add an item to todos
+app.post("/todos", function(req, res){
+  id = Math.floor(Math.random() * 10000) + 1
+
+})
+
   module.exports = app;
