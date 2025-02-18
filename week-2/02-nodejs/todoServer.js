@@ -48,14 +48,14 @@
 
 
 function getDetailsById(array, id){
-  return array.filter(obj => Obj.id = id);
+  return array.filter(obj => obj.id === id);
 }
 
 // todo object
   let todos = []
 
 // get all todos
-  app.get("/", function(req, res){
+  app.get('/todos', (req, res) => {
     // let ans = todos
     // res.send(ans)
     res.json(todos)
@@ -63,11 +63,17 @@ function getDetailsById(array, id){
   });
 
 // get an item based on id
-app.get("/todos/:id", function(req, res){
-  const id = req.params.id;
+app.get('/todos/:id', (req, res) => {
+  // const id = req.params.id;
 
-  const ans = getDetailsById(todos, id);
-  res.send(ans)
+  // const ans = getDetailsById(todos, id);
+  // res.status(200).json(ans)
+  const todo = todos.find(t => t.id === parseInt(req.params.id));
+  if (!todo) {
+    res.status(404).send();
+  } else {
+    res.json(todo);
+  }
 
 });
 
