@@ -74,15 +74,25 @@ app.get('/todos/:id', (req, res) => {
   } else {
     res.json(todo);
   }
+});
 
   //DELETE
 
-  app.delete("/todos/:id", (req, res) => {
-    
-  })
+app.delete('/todos/:id', (req, res) => {
+  //console.log(req.params.id);
+  const todo = todos.find(t => t.id === parseInt(req.params.id));
+  
+  if(todo){
+    //console.log("Inside!")
+    const temp = todos.filter( i => i  !== todo);
+    todos = temp;
+    res.status(201).send("Item was found and deleted!");
+  }
+  else{
+    res.status(404).send("Not Found!!!");
+  }
 
 });
-
 
 //Add an item to todos
 app.post("/todos", (req, res) => {
