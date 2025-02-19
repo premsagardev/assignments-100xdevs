@@ -110,5 +110,31 @@ app.post("/todos", (req, res) => {
   res.status(201).json(newTodo)
 });
 
+//PUT or Update
+app.put("/todos/:id", (req, res) => {
+  const newTodo = {
+    id : parseInt(req.params.id),
+    title : req.body.title,
+    description : req.body.description
+  }
+  const todo = todos.find(t => t.id === parseInt(req.params.id));
+  console.log(todo);
+  if(todo){
+    //console.log("Inside!")
+    const temp = todos.filter( i => i  !== todo);
+    todos = temp;
+    todos.push(newTodo);
+    res.status(201).json(newTodo);
+  }
+  else{
+    res.status(404).send("Not Found!!!");
+  }
+
+});
+
+//for all
+app.use(req, res, next){
+  res.status(404).send();
+};
 app.listen(3000);
 module.exports = app;
