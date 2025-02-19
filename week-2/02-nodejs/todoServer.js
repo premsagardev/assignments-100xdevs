@@ -64,7 +64,7 @@ function getDetailsById(array, id){
 
 // get an item based on id
 app.get('/todos/:id', (req, res) => {
-  // const id = req.params.id;
+  const id = req.params.id;
 
   // const ans = getDetailsById(todos, id);
   // res.status(200).json(ans)
@@ -74,6 +74,12 @@ app.get('/todos/:id', (req, res) => {
   } else {
     res.json(todo);
   }
+
+  //DELETE
+
+  app.delete("/todos/:id", (req, res) => {
+    
+  })
 
 });
 
