@@ -72,7 +72,7 @@ app.get('/todos/:id', (req, res) => {
   if (!todo) {
     res.status(404).send();
   } else {
-    res.json(todo);
+    res.status(200).json(todo);
   }
 });
 
@@ -86,7 +86,7 @@ app.delete('/todos/:id', (req, res) => {
     //console.log("Inside!")
     const temp = todos.filter( i => i  !== todo);
     todos = temp;
-    res.status(201).send("Item was found and deleted!");
+    res.status(200).send("Item was found and deleted!");
   }
   else{
     res.status(404).send("Not Found!!!");
@@ -124,7 +124,7 @@ app.put("/todos/:id", (req, res) => {
     const temp = todos.filter( i => i  !== todo);
     todos = temp;
     todos.push(newTodo);
-    res.status(201).json(newTodo);
+    res.status(200).json(newTodo);
   }
   else{
     res.status(404).send("Not Found!!!");
@@ -133,8 +133,9 @@ app.put("/todos/:id", (req, res) => {
 });
 
 //for all
-app.use(req, res, next){
+app.use((req, res, next) => {
   res.status(404).send();
-};
-app.listen(3000);
+});
+
+//app.listen(3000);
 module.exports = app;
