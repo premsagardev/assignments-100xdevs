@@ -11,12 +11,12 @@ function isAnagram(str1, str2) {
   //const hash = new Map();
   if ( str1.length != str2.length){
     return false;
-  } 
+  }
 
-  let s1 = str1.split("").sort().join();
-  let s2 = str2.split("").sort().join();
+  let s1 = str1.split("").sort().join("");
+  let s2 = str2.split("").sort().join("");
 
-  return s1.lower == s2.lower
+  return s1.toLowerCase == s2.toLowerCase
   // str1.forEach(element => {
   //   if (hash.has(element)){
   //     const value = hash.get(element);
