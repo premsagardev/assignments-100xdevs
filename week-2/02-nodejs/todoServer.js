@@ -43,7 +43,7 @@
   const bodyParser = require('body-parser');
   
   const app = express();
-  
+  app.use(express.json());
   app.use(bodyParser.json());
 
 
@@ -65,14 +65,24 @@ function getDetailsById(array, id){
 // get an item based on id
 app.get('/todos/:id', (req, res) => {
   const id = req.params.id;
+  const username = req.header.username;
+  const pass = req.header.password;
 
+  if(username != "prem" && pass != "1811"){
+    res.status(403).json({
+      msg: "User does not exist",
+  });
+  return
+  }
   // const ans = getDetailsById(todos, id);
   // res.status(200).json(ans)
   const todo = todos.find(t => t.id === parseInt(req.params.id));
-  if (!todo) {
-    res.status(404).send();
-  } else {
-    res.status(200).json(todo);
+  if(username === "prem" && pass === "1811"){
+    if (!todo){
+      res.status(404).send();
+    } else {
+      res.status(200).json(todo);
+    }
   }
 });
 
